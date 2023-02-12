@@ -13,10 +13,16 @@ namespace ModelDemo.Controllers
         {
             foreach(Doge doge in input)
             {
-                System.Console.WriteLine(doge.Name);
+                System.Console.WriteLine(returnString(doge.Name));
             }
 
             return Accepted(input);
+        }
+        string returnString(string input)
+        {
+            //log character at position 0
+            System.Diagnostics.Debug.WriteLine(input[0]);
+            return input;
         }
     }
 
