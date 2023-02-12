@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace ModelDemo.Controllers
 {
@@ -13,16 +14,20 @@ namespace ModelDemo.Controllers
         {
             foreach(Doge doge in input)
             {
-                System.Console.WriteLine(returnString(doge.Name));
+                System.Console.WriteLine(LogObject(doge));
             }
 
             return Accepted(input);
         }
-        string returnString(string input)
+        string LogObject(Doge input)
         {
-            //log character at position 0
-            System.Diagnostics.Debug.WriteLine(input[0]);
-            return input;
+            PropertyInfo[] properties = input.GetType().GetProperties();
+            foreach (var p in properties)
+            {
+                var value = p.GetValue(input);
+                System.Diagnostics.Debug.WriteLine(value);
+            }
+            return input.Name;
         }
     }
 
